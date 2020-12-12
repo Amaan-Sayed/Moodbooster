@@ -1,0 +1,27 @@
+.main {
+  text-align: center;
+
+  .button {
+    color: $color-white;
+    background-color: #407aa3;
+    padding: 2rem 4.5rem;
+    margin-top: 5rem;
+    border: 0;
+    border-radius: 3px;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .amount {
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+
+  .youtubeDiv {
+    margin: 0 auto;
+    width: 700px;
+    height: 400px;
+    // width="640"
+    // height="360"
+  }
+}
