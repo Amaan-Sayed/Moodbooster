@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { formatISO } from "date-fns";
 import { useStickyState } from "./useStickyState";
 
-const Timer = ({ setNumLeft }) => {
+const Timer = ({ setVidsLeft }) => {
   const [countdown, setCountdown] = useState();
   //   const [now, setNow] = useStickyState(formatISO(new Date()), "nowDate");
   const [restart, setRestart] = useStickyState(
@@ -26,7 +26,7 @@ const Timer = ({ setNumLeft }) => {
       //   FIGURE THIS OUT
       if (now.toISOString() === start.toISOString()) {
         console.log("RESET");
-        // setNumLeft(2);
+        // setVidsLeft(2);
       }
 
       let remain = (start - now) / 1000;
@@ -46,7 +46,7 @@ const Timer = ({ setNumLeft }) => {
     <div>
       <p className="amount">{countdown} until refresh</p>
       {/* <p className="amount">{date}</p> */}
-      {/* <button className="button" onClick={() => setNumLeft(2)}>
+      {/* <button className="button" onClick={() => setVidsLeft(2)}>
         Reset
       </button> */}
     </div>

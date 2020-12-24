@@ -4,45 +4,54 @@ import { useStickyState } from "./useStickyState";
 import Timer from "./Timer";
 
 const Main = () => {
-  const [numLeft, setNumLeft] = useStickyState(3, "numLeft");
-  const [selectedVideo, setSelectedVideo] = useStickyState("", "videoId");
-
-  const random = Math.floor(Math.random() * VIDEOS.length);
-
-  // Initial query if there's no previous video
-  useEffect(() => {
-    // videoId === "" && query();
-  }, []);
+  const [selectedVid, setSelectedVid] = useStickyState(null, "selectedVid");
+  const [vidsLeft, setVidsLeft] = useStickyState(2, "vidsLeft");
 
   // window.localStorage.clear();
+  let random = Math.floor(Math.random() * VIDEOS.length);
+
+  // Checks if there's no previous video
+  useEffect(() => {
+    selectedVid === null && setSelectedVid(VIDEOS[random]);
+  }, []);
 
   return (
     <div className="main">
+      {/* Youtube Player */}
       <iframe
         id="vid"
         title="video"
         className="youtubeDiv"
-        src={`https://www.youtube.com/embed/${VIDEOS[random]}`}
-        // src={videoId}
+        src={`https://www.youtube.com/embed/${selectedVid}`}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />
 
-      {/* Button & status for a new video */}
+      {/* Manipulation Section */}
       <div>
+        {/* New Vlog Button */}
         <button
           className="button"
-          onClick={() => numLeft > 0 && setNumLeft(numLeft - 1)}
-          // onClick={() => numLeft > 0 && (setNumLeft(numLeft - 1), query())}
+          onClick={() =>
+            vidsLeft > 0 &&
+            (setSelectedVid(VIDEOS[random]), setVidsLeft(vidsLeft - 1))
+          }
         >
           New Vlog!
         </button>
-        <button className="button" onClick={() => setNumLeft(2)}>
+
+        {/* Reset Button */}
+        <button
+          className="button"
+          onClick={() => (setSelectedVid(VIDEOS[random]), setVidsLeft(2))}
+        >
           Reset
         </button>
-        <p className="amount">{numLeft} left today</p>
-        <Timer setNumLeft={(num) => setNumLeft(num)} />
+
+        {/* Data */}
+        <p className="amount">{vidsLeft} left today</p>
+        <Timer setVidsLeft={() => setVidsLeft(2)} />
       </div>
     </div>
   );
