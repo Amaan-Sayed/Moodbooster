@@ -1,69 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { randomVidNum, URL, TEST_URL } from "./constants";
+import { VIDEOS } from "./constants";
 import { useStickyState } from "./useStickyState";
 import Timer from "./Timer";
 
 const Main = () => {
-  const [testVids, setTestVids] = useState([]);
-  const [pageToken, setPageToken] = useState("");
-  const [playlistId, setPlaylistId] = useState(null);
+  const [numLeft, setNumLeft] = useStickyState(3, "numLeft");
+  const [selectedVideo, setSelectedVideo] = useStickyState("", "videoId");
 
-  const [numLeft, setNumLeft] = useStickyState(2, "numLeft");
-  const [videoId, setVideoId] = useStickyState("", "videoId");
-  const vidIDs = [
-    "hWzccW4TQkg",
-    "D-DMmIqigqo",
-    "lqpJiZQpgu8",
-    "Flwav_LIdrQ",
-    "uMKI5NPU8po",
-    "tMbRu3YkmJo",
-  ];
-  const random = Math.floor(Math.random() * vidIDs.length);
-
-  const queryVideoPage = () => {
-    fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&pageToken=${pageToken}&maxResults=50&playlistId=${playlistId}&key=${
-        process.env.REACT_APP_API_KEY
-      }`
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        setTestVids([
-          ...testVids,
-          ...result.items.map((video) => video.snippet.resourceId.videoId),
-        ]);
-        setPageToken(result.nextPageToken);
-      });
-  };
-
-  // Query for David Dobrik Video
-  const query = () => {
-    fetch(URL)
-      .then((response) => response.json())
-      .then((result) => {
-        // const VIDEO_RESULT = result.items[randomVidNum].id.videoId;
-        // setVideoId(`https://www.youtube.com/embed/${VIDEO_RESULT}`);
-        const playlistId =
-          result.items[0].contentDetails.relatedPlaylists.uploads;
-
-        setPlaylistId(playlistId);
-      })
-      .catch((error) => console.error(error));
-  };
+  const random = Math.floor(Math.random() * VIDEOS.length);
 
   // Initial query if there's no previous video
   useEffect(() => {
     // videoId === "" && query();
-    query();
   }, []);
-
-  useEffect(() => {
-    if (playlistId !== null && pageToken !== undefined) {
-      queryVideoPage();
-    }
-  }, [playlistId, pageToken]);
-
-  console.log(testVids);
 
   // window.localStorage.clear();
 
@@ -73,7 +22,7 @@ const Main = () => {
         id="vid"
         title="video"
         className="youtubeDiv"
-        src={`https://www.youtube.com/embed/${vidIDs[random]}`}
+        src={`https://www.youtube.com/embed/${VIDEOS[random]}`}
         // src={videoId}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -82,25 +31,24 @@ const Main = () => {
 
       {/* Button & status for a new video */}
       <div>
-        {/* <button
+        <button
           className="button"
           onClick={() => numLeft > 0 && setNumLeft(numLeft - 1)}
           // onClick={() => numLeft > 0 && (setNumLeft(numLeft - 1), query())}
         >
           New Vlog!
-        </button> */}
-        {/* <button className="button" onClick={() => (setNumLeft(2), query())}>
+        </button>
+        <button className="button" onClick={() => setNumLeft(2)}>
           Reset
-        </button> */}
-        {/* <p className="amount">{numLeft} left today</p> */}
-        {/* <Timer setNumLeft={(num) => setNumLeft(num)} /> */}[
-        {testVids.map((item) => (
-          <div>"{item}",</div>
-        ))}
-        ]
+        </button>
+        <p className="amount">{numLeft} left today</p>
+        <Timer setNumLeft={(num) => setNumLeft(num)} />
       </div>
     </div>
   );
 };
 
 export default Main;
+
+// Copy this URL for better customization
+// "https://www.youtube.com/embed/?rel=0&amp;autoplay=1&amp;enablejsapi=1&amp;controls=1&amp;disablekb=0&amp;egm=0&amp;iv_load_policy=3&amp;showsearch=0&amp;showinfo=0&amp;fs=1&amp;hd=1&amp;modestbranding=1&amp;autohide=1&amp;playsinline=1&amp;origin=https%3A%2F%2Fgivemearandomdaviddobrikvlog.com&amp;widgetid=1"
