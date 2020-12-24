@@ -5,8 +5,8 @@ import { useStickyState } from "./useStickyState";
 const Timer = ({ resetVids }) => {
   let dateNow = new Date();
 
+  const [dateTmrw, setDateTmrw] = useStickyState(null, "dateTmrw");
   const [countdown, setCountdown] = useState();
-  const [dateTmrw, setDateTmrw] = useStickyState();
 
   const countdownTimer = () => {
     let start = new Date();
@@ -42,8 +42,9 @@ const Timer = ({ resetVids }) => {
     startDate.setDate(startDate.getDate() + 1);
 
     // Initializes reset date
-    dateTmrw === undefined && setDateTmrw(startDate);
+    dateTmrw === null && setDateTmrw(startDate);
 
+    // Manual Reset
     // dateNow = formatISO(dateNow.setDate(27));
 
     // Resets video counter
