@@ -2,25 +2,34 @@
   text-align: center;
 
   .button {
-    color: $color-white;
-    background-color: #407aa3;
+    color: $color-black;
+    background-color: #62a0b6;
     padding: 2rem 4.5rem;
     margin-top: 5rem;
     border: 0;
-    border-radius: 3px;
-    font-size: 2rem;
+    border-radius: 7px;
+    font-size: 1.9rem;
     cursor: pointer;
+
+    &:hover {
+      background-color: #568ca0;
+    }
   }
 
   .amount {
-    font-size: 2rem;
-    margin-top: 1rem;
+    font-size: 1.9rem;
+    margin-top: 2rem;
+  }
+
+  .countdown {
+    font-size: 1.9rem;
+    margin-top: 5rem;
   }
 
   .youtubeDiv {
     margin: 0 auto;
-    width: 700px;
-    height: 400px;
+    width: 750px;
+    height: 420px;
     // width="640"
     // height="360"
   }

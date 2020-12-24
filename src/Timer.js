@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import { formatISO } from "date-fns";
 import { useStickyState } from "./useStickyState";
 
-const Timer = ({ setVidsLeft }) => {
+const Timer = ({ resetVids }) => {
+  let dateNow = new Date();
+
   const [countdown, setCountdown] = useState();
-  //   const [now, setNow] = useStickyState(formatISO(new Date()), "nowDate");
-  const [restart, setRestart] = useStickyState(
-    formatISO(new Date().setHours(16, 40, 0)),
-    "restartDate"
-  );
+  const [dateTmrw, setDateTmrw] = useStickyState();
 
   const countdownTimer = () => {
     let start = new Date();
-    start.setHours(17, 0, 0);
+    start.setHours(0, 0, 0);
 
     const pad = (num) => ("0" + parseInt(num)).substr(-2);
 
@@ -21,12 +19,6 @@ const Timer = ({ setVidsLeft }) => {
 
       if (now > start) {
         start.setDate(start.getDate() + 1);
-      }
-
-      //   FIGURE THIS OUT
-      if (now.toISOString() === start.toISOString()) {
-        console.log("RESET");
-        // setVidsLeft(2);
       }
 
       let remain = (start - now) / 1000;
@@ -42,13 +34,28 @@ const Timer = ({ setVidsLeft }) => {
 
   countdownTimer();
 
+  useEffect(() => {}, [countdown]);
+
+  useEffect(() => {
+    let startDate = new Date();
+    startDate.setHours(0, 0, 0);
+    startDate.setDate(startDate.getDate() + 1);
+
+    // Initializes reset date
+    dateTmrw === undefined && setDateTmrw(startDate);
+
+    // dateNow = formatISO(dateNow.setDate(27));
+
+    // Resets video counter
+    if (dateNow >= dateTmrw) {
+      resetVids();
+      setDateTmrw(startDate);
+    }
+  }, [dateTmrw]);
+
   return (
     <div>
-      <p className="amount">{countdown} until refresh</p>
-      {/* <p className="amount">{date}</p> */}
-      {/* <button className="button" onClick={() => setVidsLeft(2)}>
-        Reset
-      </button> */}
+      <p className="countdown">You'll get 3 new videos in {countdown}</p>
     </div>
   );
 };
