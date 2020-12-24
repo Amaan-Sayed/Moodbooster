@@ -46,6 +46,9 @@ const Timer = ({ resetVids }) => {
 
     // Manual Reset
     // dateNow = formatISO(dateNow.setDate(27));
+    console.log(dateNow >= dateTmrw);
+    console.log(dateNow);
+    console.log(dateTmrw);
 
     // Resets video counter
     if (dateNow >= dateTmrw) {
