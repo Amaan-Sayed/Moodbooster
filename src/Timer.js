@@ -41,17 +41,14 @@ const Timer = ({ resetVids }) => {
     startDate.setHours(0, 0, 0);
     startDate.setDate(startDate.getDate() + 1);
 
-    // Initializes reset date
-    dateTmrw === null && setDateTmrw(startDate);
-
     // Manual Reset
     // dateNow = formatISO(dateNow.setDate(27));
-    console.log(dateNow >= dateTmrw);
-    console.log(window.localStorage.getItem("dateTmrw"));
-    console.log(dateTmrw);
 
-    // Resets video counter
-    if (dateNow >= dateTmrw) {
+    if (dateTmrw === null) {
+      // Initializes reset date
+      setDateTmrw(startDate);
+    } else if (dateNow >= dateTmrw) {
+      // Resets video counter
       resetVids();
       setDateTmrw(startDate);
     }
