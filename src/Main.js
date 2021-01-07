@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { VIDEOS } from "./constants";
 import { useStickyState } from "./useStickyState";
 import Timer from "./Timer";
-import MakerLink from "./Badge";
 
 const Main = () => {
   const [selectedVid, setSelectedVid] = useStickyState(null, "selectedVid");
@@ -50,9 +49,6 @@ const Main = () => {
           resetVids={() => (setSelectedVid(VIDEOS[random]), setVidsLeft(2))}
         />
       )}
-
-      {/* Badge */}
-      <MakerLink />
     </div>
   );
 };

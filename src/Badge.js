@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 import MakerPhoto from "./img/profile_pic.png";
 
-const MakerLink = () => (
+const Badge = () => (
   <Link target="_blank" rel="noopener" href="https://twitter.com/amaansayed_">
     <Image src={MakerPhoto} />
     <Text>by Amaan</Text>
   </Link>
 );
 
-export default MakerLink;
+export default Badge;
 
 const Link = styled.a`
   font-family: "Helvetica Neue", sans-serif;
@@ -20,11 +20,12 @@ const Link = styled.a`
   z-index: 100;
   border-top-left-radius: 7px;
   padding: 6px 15px;
-  background: #62a0b6;
+  background: #74bdd8;
   color: #222;
   text-decoration: none;
+  transition: all 0.2s;
   &:hover {
-    background: #568ca0;
+    background: #5993a8;
   }
 `;
 

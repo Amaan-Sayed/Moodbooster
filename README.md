@@ -1,3 +1,3 @@
 # Moodbooster
 
-A project using the Youtube API to randomly query 3 David Dobrik vlogs per day.
+This project lets you watch three David Dobrik vlogs per day. It caps at three so you don't fall into a trap of binging every single video.

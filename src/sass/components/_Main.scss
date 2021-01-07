@@ -2,17 +2,20 @@
   text-align: center;
 
   .button {
-    color: $color-black;
-    background-color: #62a0b6;
-    padding: 2rem 4.5rem;
-    margin-top: 5rem;
-    border: 0;
+    padding: 1.5rem 6rem;
+    margin-top: 3rem;
     border-radius: 7px;
-    font-size: 1.9rem;
     cursor: pointer;
+    background-color: #74bdd8;
+    border: 1px solid #74bdd8;
+    color: $color-black;
+    font-size: 2rem;
+    transition: all 0.2s;
 
-    &:hover {
-      background-color: #568ca0;
+    &:hover,
+    &:active {
+      background-color: #5993a8;
+      border: 1px solid #5993a8;
     }
   }
 

@@ -42,7 +42,7 @@ const Timer = ({ resetVids }) => {
     startDate.setDate(startDate.getDate() + 1);
 
     // Manual Reset
-    // dateNow = formatISO(dateNow.setDate(27));
+    dateNow = formatISO(dateNow.setDate(27));
 
     if (dateTmrw === null) {
       // Initializes reset date
