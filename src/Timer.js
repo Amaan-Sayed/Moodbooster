@@ -4,7 +4,10 @@ import { parseISO, startOfTomorrow } from "date-fns";
 
 const Timer = ({ resetVids }) => {
   let now = new Date();
-  const [tomorrow, setTomorrow] = useStickyState(startOfTomorrow(), "tomorrow");
+  const [tomorrow, setTomorrow] = useStickyState(
+    startOfTomorrow().toISOString(),
+    "tomorrow"
+  );
   const [countdown, setCountdown] = useState();
 
   // Timer that updates video limit every new day
