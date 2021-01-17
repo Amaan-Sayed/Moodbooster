@@ -1,18 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { VIDEOS } from "./constants";
 import { useStickyState } from "./useStickyState";
 import Timer from "./Timer";
 
 const Main = () => {
-  const [selectedVid, setSelectedVid] = useStickyState(null, "selectedVid");
-  const [vidsLeft, setVidsLeft] = useStickyState(2, "vidsLeft");
-
   let random = Math.floor(Math.random() * VIDEOS.length);
-
-  // Checks if there's no previous video
-  useEffect(() => {
-    selectedVid === null && setSelectedVid(VIDEOS[random]);
-  }, []);
+  const [selectedVid, setSelectedVid] = useStickyState(
+    VIDEOS[random],
+    "selectedVid"
+  );
+  const [vidsLeft, setVidsLeft] = useStickyState(2, "vidsLeft");
 
   return (
     <div className="main">
@@ -28,26 +25,21 @@ const Main = () => {
       />
 
       {/* New Vlog Button */}
-      {vidsLeft !== 0 && (
+      {vidsLeft !== 0 ? (
         <div>
           <button
             className="button"
-            onClick={() =>
-              vidsLeft > 0 &&
-              (setSelectedVid(VIDEOS[random]), setVidsLeft(vidsLeft - 1))
-            }
+            onClick={() => {
+              setSelectedVid(VIDEOS[random]);
+              setVidsLeft(vidsLeft - 1);
+            }}
           >
             New Vlog!
           </button>
           <p className="amount">{vidsLeft} vlogs left today</p>
         </div>
-      )}
-
-      {/* Timer */}
-      {vidsLeft === 0 && (
-        <Timer
-          resetVids={() => (setSelectedVid(VIDEOS[random]), setVidsLeft(2))}
-        />
+      ) : (
+        <Timer resetVids={() => setVidsLeft(3)} />
       )}
     </div>
   );
