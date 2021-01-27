@@ -39,7 +39,12 @@ const Main = () => {
           <p className="amount">{vidsLeft} vlogs left today</p>
         </div>
       ) : (
-        <Timer resetVids={() => setVidsLeft(3)} />
+        <Timer
+          resetVids={() => {
+            setSelectedVid(VIDEOS[random]);
+            setVidsLeft(2);
+          }}
+        />
       )}
     </div>
   );
