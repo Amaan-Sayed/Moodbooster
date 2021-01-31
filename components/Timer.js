@@ -1,18 +1,13 @@
-import React, { useState } from "react";
-import { useStickyState } from "./useStickyState";
-import { parseISO, startOfTomorrow } from "date-fns";
+import React, { useState, useEffect } from 'react';
+import { parseISO, startOfTomorrow } from 'date-fns';
 
-const Timer = ({ resetVids }) => {
+const Timer = ({ resetVids, tomorrow, setTomorrow }) => {
   let now = new Date();
-  const [tomorrow, setTomorrow] = useStickyState(
-    startOfTomorrow().toISOString(),
-    "tomorrow"
-  );
   const [countdown, setCountdown] = useState();
 
   // Timer that updates video limit every new day
   const countdownTimer = () => {
-    const pad = (num) => ("0" + parseInt(num)).substr(-2);
+    const pad = (num) => ('0' + parseInt(num)).substr(-2);
 
     const tick = () => {
       if (now > parseISO(tomorrow)) {
@@ -25,7 +20,7 @@ const Timer = ({ resetVids }) => {
       let mm = pad((remain / 60) % 60);
       let ss = pad(remain % 60);
 
-      setCountdown(hh + ":" + mm + ":" + ss);
+      setCountdown(hh + ':' + mm + ':' + ss);
     };
 
     setTimeout(tick, 1000);
@@ -35,7 +30,9 @@ const Timer = ({ resetVids }) => {
 
   return (
     <div>
-      <p className="countdown">You'll get 3 new videos in {countdown}</p>
+      <p className="text-xl text-white mt-10 text-center">
+        You'll get 3 new videos in {countdown}
+      </p>
     </div>
   );
 };
